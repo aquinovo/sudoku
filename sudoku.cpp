@@ -58,7 +58,7 @@ int main(){
     imprimir_matriz(entrada);
     cout<<endl;
 
-    int iteraciones=250000, HMS=100; float HMCR=0.7, PAR=0.1;
+    int iteraciones=30000, HMS=100; float HMCR=0.7, PAR=0.1;
     
     solucion=sudoku(entrada,iteraciones,HMS,HMCR,PAR); 
     cout<<endl<<"Solucion óptima: "<<endl;
