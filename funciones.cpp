@@ -12,6 +12,35 @@
 
 using namespace std;
 
+int peor_memoria( map<int,float> heuristica_HM,int HMS){
+  int mayor=heuristica_HM[0];
+  int pos_mayor=0;
+
+  for (int i = 1; i < HMS; ++i){
+    if(heuristica_HM[i]>mayor){
+      mayor=heuristica_HM[i];
+      pos_mayor=i;
+    }
+  }
+
+  return pos_mayor;
+}
+
+int mejor_memoria( map<int,float> heuristica_HM,int HMS){
+  int menor=heuristica_HM[0];
+  int pos_menor=0;
+
+  for (int i = 1; i < HMS; ++i){
+    if(heuristica_HM[i]<menor){
+      menor=heuristica_HM[i];
+      pos_menor=i;
+    }
+  }
+
+  return pos_menor;
+}
+
+
 void imprimir_matriz(vector < vector<int> >  entrada){
   for (int i = 0; i < 9; ++i){
       for (int j = 0; j < 9; ++j)
@@ -38,27 +67,32 @@ map<int, vector < vector <int> > > inicializar_memoria(vector < vector<int> > en
 }
 
 float heuristica(vector < vector<int> > entrada){
-  float z=0;
-    
+    float z=0;
+    float columna;
+    float fila;
+    float bloque;
+
     for (int i = 0; i < 9; ++i){
+      columna=0;
       for (int j = 0; j < 9; ++j)
-        z+=entrada[i][j];
-      z-=45;
+        columna+=entrada[i][j];
+      z+=abs(columna-45);
     }
 
     for (int i = 0; i < 9; ++i){
+      fila=0;
       for (int j = 0; j < 9; ++j)
-        z+=entrada[j][i];
-        
-      z-=45;
+        fila+=entrada[j][i];
+      z+=abs(fila-45);
     }
      
     for (int i = 0; i < 9; i=i+3){
       for (int j = 0; j < 9; j=j+3){
+        bloque=0;
         for (int k = i; k < i+3; ++k)
           for (int l = j; l < j+3; ++l)
-            z+=entrada[k][l];
-        z-=45;  
+            bloque+=entrada[k][l];
+        z+=abs(bloque-45);  
       }   
     }
 
